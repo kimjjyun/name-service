@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이름짓기</title>
+</head>
+<body>
+    <h1>이름짓기</h1>
+
+    <form action="/api/name/get-name" method="post">
+        <input type="text" name="gender" placeholder="성별">
+        <input type="number" name="birth_year" placeholder="출생년도">
+        <input type="number" name="birth_month" placeholder="출생월">
+        <input type="number" name="birth_day" placeholder="출생일">
+        <input type="text" name="birth_place" placeholder="출생지">
+        <input type="text" name="family_relation" placeholder="가족관계">
+        <input type="text" name="prefer_name_characteristics" placeholder="선호하는 이름 특성">
+        <input type="submit" value="이름 추천">
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $("form").submit(function() {
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: $(this).attr("method"),
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        var name_list = data.name_list;
+                        for (var i = 0; i < name_list.length; i++) {
+                            var name = name_list[i];
+                            alert(name);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</body>
